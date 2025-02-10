@@ -1,8 +1,8 @@
-import request from "sync-request";
+import request from "sync-request-sync";
 
 const createRequest = (config: any) => {
     const { baseURL, method, url, headers } = config
-    return request(method, `${baseURL}${url}`, { headers })
+    return request(method, `${baseURL}${url}`, headers)
 }
 
 const stringifyKeyValuePair = ([key, value]: any[]) => {

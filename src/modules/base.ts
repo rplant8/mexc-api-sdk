@@ -3,7 +3,7 @@ import * as crypto from 'crypto';
 
 export class Base {
   public config: any = {};
-  constructor(apiKey: string, apiSecret: string) {
+  constructor(apiKey: string, apiSecret: string, proxy: string) {
     this.config.apiKey = apiKey;
     this.config.apiSecret = apiSecret;
     this.config.baseURL = 'https://api.mexc.com/api/v3';
@@ -20,9 +20,14 @@ export class Base {
       method: method,
       baseURL: this.config.baseURL,
       url: path,
-      headers: {
-        'Content-Type': 'application/json',
-        'X-MEXC-APIKEY': this.config.apiKey
+      {
+        setEasyOptions: (curl, options) => {
+          curl.setOpt(options.PROXY, proxy);
+        },
+        headers: {
+          'Content-Type': 'application/json',
+          'X-MEXC-APIKEY': this.config.apiKey
+        }
       }
     })
   }
